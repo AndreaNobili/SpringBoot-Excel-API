@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.springboot</groupId>
-	<artifactId>excel-api</artifactId>
+	<artifactId>excel-api-SOC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Excel API with Spring Boot</name>
+	<name>Excel API with Spring Boot 2</name>
 	<description>Spring Boot - working with Excel API</description>
 
 	<parent>
@@ -61,6 +61,39 @@
 			<version>3.11</version>
 		</dependency>
 		<!-- End of excel dependencies -->
+		
+		<dependency>
+		  <groupId>commons-io</groupId>
+		  <artifactId>commons-io</artifactId>
+		  <version>2.6</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.9</version>
+		</dependency>
+		
+		<!-- Start DB connectivity dependencies -->
+		 
+		<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-jdbc</artifactId>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.mariadb.jdbc</groupId>
+	      <artifactId>mariadb-java-client</artifactId>
+	      <version>1.5.7</version>
+	    </dependency>
+	    
+	    <!-- End DB connectivity dependencies -->
+	    
+	    <!-- JPA dependency -->
+	    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 			
 	</dependencies>
 

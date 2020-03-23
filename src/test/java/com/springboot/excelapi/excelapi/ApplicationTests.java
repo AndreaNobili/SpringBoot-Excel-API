@@ -1,4 +1,4 @@
-package com.springboot.excelapi;
+package com.springboot.excelapi.excelapi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

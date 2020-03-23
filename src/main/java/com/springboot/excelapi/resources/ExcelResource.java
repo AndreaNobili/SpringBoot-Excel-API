@@ -2,7 +2,11 @@ package com.springboot.excelapi.resources;
 
 import com.springboot.excelapi.dto.DemoDTO;
 import com.springboot.excelapi.dto.ExampleDTO;
+import com.springboot.excelapi.service.OrderService;
+import com.springboot.excelapi.service.OrderServiceImpl;
 import com.springboot.excelapi.services.ExcelService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +24,9 @@ import java.util.List;
 public class ExcelResource {
 
     private ExcelService excelService;
+    
+    @Autowired
+	OrderService orderService;
 
     /**
      * Constructor / dependency injector

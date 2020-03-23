@@ -3,9 +3,14 @@ package com.springboot.excelapi.integration;
 import com.springboot.excelapi.Application;
 import com.springboot.excelapi.dto.DemoDTO;
 import com.springboot.excelapi.dto.ExampleDTO;
+import com.springboot.excelapi.dto.Order;
+import com.springboot.excelapi.service.OrderService;
+import com.springboot.excelapi.service.OrderServiceImpl;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
@@ -16,9 +21,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { Application.class })
@@ -30,6 +36,16 @@ public class ExcelResourceIntegrationTest {
     private static final String TARGET_API_SPECIFIC_CELLS = "http://localhost:8080/api/specific-cells";
 
     private TestRestTemplate testRestTemplate;
+    
+    
+    @Autowired
+    OrderServiceImpl orderService;
+	
+    /*
+    @Autowired
+    OrderRepository orderRepository;
+    */
+    
 
     @Before
     public void init() {
@@ -78,4 +94,12 @@ public class ExcelResourceIntegrationTest {
         assertThat(responseBody.size()).isEqualTo(2);
         assertThat(responseBody.get(0).getName()).isEqualTo("John Doe");
     }
+    
+    @Test
+    public void getOrdersListServiceTest() {	
+		List<Order> ordersList = orderService.getOrdersList();
+    	
+		assertThat(ordersList).isNotEmpty();
+	}
+    
 }
