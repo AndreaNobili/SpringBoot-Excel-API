@@ -19,7 +19,7 @@ This project contains code examples for working with Excel files (Apache POI lib
 
 ## Author
 
-Heril Muratović  
+Andrea Nobili
 Software Engineer  
 <br>
 **E-mail**: nobili.andrea@gmail.com  

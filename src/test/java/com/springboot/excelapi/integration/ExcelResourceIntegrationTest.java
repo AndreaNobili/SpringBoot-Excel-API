@@ -3,7 +3,7 @@ package com.springboot.excelapi.integration;
 import com.springboot.excelapi.Application;
 import com.springboot.excelapi.dto.DemoDTO;
 import com.springboot.excelapi.dto.ExampleDTO;
-import com.springboot.excelapi.dto.Order;
+import com.springboot.excelapi.dto.CustomerOrder;
 import com.springboot.excelapi.service.OrderService;
 import com.springboot.excelapi.service.OrderServiceImpl;
 
@@ -97,7 +97,7 @@ public class ExcelResourceIntegrationTest {
     
     @Test
     public void getOrdersListServiceTest() {	
-		List<Order> ordersList = orderService.getOrdersList();
+		List<CustomerOrder> ordersList = orderService.getOrdersList();
     	
 		assertThat(ordersList).isNotEmpty();
 	}

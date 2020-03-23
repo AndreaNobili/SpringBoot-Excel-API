@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.excelapi.dto.Order;
+import com.springboot.excelapi.dto.CustomerOrder;
 import com.springboot.excelapi.repository.OrderRepository;
 
 @Service
@@ -16,9 +16,9 @@ public class OrderServiceImpl implements OrderService {
 	OrderRepository orderRepository;
 	
 	
-	public List<Order> getOrdersList() {
+	public List<CustomerOrder> getOrdersList() {
 		
-		List<Order> result = (List<Order>) orderRepository.findAll();
+		List<CustomerOrder> result = (List<CustomerOrder>) orderRepository.findAll();
 		
 		//List<Order> result = new ArrayList<Order>();
 		

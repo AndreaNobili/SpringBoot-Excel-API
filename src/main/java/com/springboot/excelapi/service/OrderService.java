@@ -2,10 +2,10 @@ package com.springboot.excelapi.service;
 
 import java.util.List;
 
-import com.springboot.excelapi.dto.Order;
+import com.springboot.excelapi.dto.CustomerOrder;
 
 public interface OrderService {
 	
-	public List<Order> getOrdersList();
+	public List<CustomerOrder> getOrdersList();
 
 }
