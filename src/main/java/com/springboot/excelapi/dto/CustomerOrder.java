@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class CustomerOrder {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "name")
@@ -23,7 +23,23 @@ public class CustomerOrder {
     @Column(name = "order_date_time")
     private String orderDate;
     
-    private Double quantity;
+    private int quantity;
+    
+    
+
+	public CustomerOrder() {
+		super();
+	}
+
+	public CustomerOrder(String fullName, String address, String product, String orderDate, int quantity) {
+		super();
+		//this.id = id;
+		this.fullName = fullName;
+		this.address = address;
+		this.product = product;
+		this.orderDate = orderDate;
+		this.quantity = quantity;
+	}
 
 	public int getId() {
 		return id;
@@ -65,12 +81,20 @@ public class CustomerOrder {
 		this.orderDate = orderDate;
 	}
 
-	public Double getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public String toString() {
+		return "CustomerOrder [id=" + id + ", fullName=" + fullName + ", address=" + address + ", product=" + product
+				+ ", orderDate=" + orderDate + ", quantity=" + quantity + "]";
+	}
+	
+	
     
 }

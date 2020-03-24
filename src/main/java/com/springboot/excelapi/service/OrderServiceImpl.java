@@ -15,14 +15,20 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderRepository orderRepository;
 	
-	
+	@Override
 	public List<CustomerOrder> getOrdersList() {
-		
 		List<CustomerOrder> result = (List<CustomerOrder>) orderRepository.findAll();
-		
-		//List<Order> result = new ArrayList<Order>();
-		
 		return result;
 	}
+
+
+	@Override
+	public void insertOrder(CustomerOrder order) {
+		orderRepository.save(order);
+	}
+	
+	
+	
+	
 
 }

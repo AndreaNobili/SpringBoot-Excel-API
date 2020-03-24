@@ -96,10 +96,22 @@ public class ExcelResourceIntegrationTest {
     }
     
     @Test
+    public void insertOrderServiceTest() {
+    	CustomerOrder testOrder =  new CustomerOrder("TEST1", 
+    									   			 "Test Street 35 - New York - USA", 
+    									   			 "TEST PRODUCT 1", "2020-03-24 12:10:00", 
+    									   			 3);
+    	orderService.insertOrder(testOrder);
+    	
+    }
+    
+    @Test
     public void getOrdersListServiceTest() {	
 		List<CustomerOrder> ordersList = orderService.getOrdersList();
     	
 		assertThat(ordersList).isNotEmpty();
 	}
+    
+    
     
 }
