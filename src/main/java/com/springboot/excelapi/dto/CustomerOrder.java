@@ -24,7 +24,6 @@ public class CustomerOrder {
     private String product;
     
     @Column(name = "order_date_time")
-    //private String orderDate;
     private Date orderDate;
     
     private int quantity;
@@ -69,6 +68,7 @@ public class CustomerOrder {
 		this.address = address;
 	}
 
+	
 	public String getProduct() {
 		return product;
 	}

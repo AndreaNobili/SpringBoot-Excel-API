@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public void insertOrder(CustomerOrder order) {
+	public void insertSingleOrder(CustomerOrder order) {
 		orderRepository.save(order);
 	}
 	
@@ -46,11 +46,9 @@ public class OrderServiceImpl implements OrderService {
 	    	String fileName = ExcelServiceUtils.uploadExcelDocument(uploadfile);
 	    	String tabName = "TAB1";
 	    	
-	    	//String filePath = UPLOADED_FOLDER + fileName;
-	    	
 	    	Sheet sheet = ExcelServiceUtils.getExcelSheet(fileName, tabName);
 	    	
-	    	List<CustomerOrder> rowsList = ExcelServiceUtils.getVibrAndTempListFromExcelDSheet(sheet);
+	    	List<CustomerOrder> rowsList = ExcelServiceUtils.getCustomersOrdersFromExcelSheet(sheet);
 	    	
 	    	Iterator<CustomerOrder> rowsListIterator = rowsList.iterator();
 	    	CustomerOrder currentOrder;
@@ -66,9 +64,5 @@ public class OrderServiceImpl implements OrderService {
     	
     	return result;
     }
-	
-	
-	
-	
 
 }

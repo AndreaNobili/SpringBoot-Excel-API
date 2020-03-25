@@ -104,7 +104,7 @@ public class ExcelResourceIntegrationTest {
     									   			 //"2020-03-24 12:10:00", 
     									   			 new Date(),
     									   			 3);
-    	orderService.insertOrder(testOrder);
+    	orderService.insertSingleOrder(testOrder);
     	
     }
     

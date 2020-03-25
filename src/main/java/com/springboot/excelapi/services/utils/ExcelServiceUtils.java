@@ -137,7 +137,7 @@ public class ExcelServiceUtils {
 	 * @return the list of "CompVibrAndTemp" DTOs representing all the rows into the specified Excel sheet
 	 */
 	
-	public static List<CustomerOrder> getVibrAndTempListFromExcelDSheet(Sheet sheet) {
+	public static List<CustomerOrder> getCustomersOrdersFromExcelSheet(Sheet sheet) {
 		
         List<CustomerOrder> ordersList = new ArrayList<>();
 
@@ -156,7 +156,6 @@ public class ExcelServiceUtils {
             
             currentOrder.setFullName(currentRow.getCell(0).getStringCellValue());
             currentOrder.setAddress(currentRow.getCell(1).getStringCellValue());
-            //currentOrder.setOrderDate(currentRow.getCell(2).getDateCellValue().toString());
             currentOrder.setOrderDate(currentRow.getCell(2).getDateCellValue());
             currentOrder.setProduct(currentRow.getCell(3).getStringCellValue());
             currentOrder.setQuantity((int)currentRow.getCell(4).getNumericCellValue());

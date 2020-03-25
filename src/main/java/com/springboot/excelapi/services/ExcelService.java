@@ -56,54 +56,17 @@ public class ExcelService {
             
             currentOrder.setFullName(currentRow.getCell(0).getStringCellValue());
             currentOrder.setAddress(currentRow.getCell(1).getStringCellValue());
-            //currentOrder.setOrderDate(currentRow.getCell(2).getDateCellValue().toString());
             currentOrder.setOrderDate(currentRow.getCell(2).getDateCellValue());
             currentOrder.setProduct(currentRow.getCell(3).getStringCellValue());
             currentOrder.setQuantity((int)currentRow.getCell(4).getNumericCellValue());
             
             ordersList.add(currentOrder);
-
-            
+ 
         }
         
     }
 
-    /**
-     * Method for reading excel file from specific position.
-     *
-     * @return List of mapped demo objects.
-     * @throws IOException - input / output exception.
-     */
-    public List<DemoDTO> readSpecificCellsFromExcel() throws IOException
-    {
-        // get file that needs to be mapped into object.
-        Resource resource = new ClassPathResource("documents/table.xlsx");
-        FileInputStream inputStream = new FileInputStream(resource.getFile());
-
-        // get workbook and sheet
-        XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-        Sheet sheet = workbook.getSheetAt(0);
-
-        List<DemoDTO> demoList = new ArrayList<>();
-
-        Iterator<Row> iterator = sheet.iterator();
-        while (iterator.hasNext())
-        {
-            Row currentRow = iterator.next();
-            if (currentRow.getRowNum() == 7) {
-                continue;
-            }
-
-            // generate demo object.
-            DemoDTO demoDTO = new DemoDTO();
-            demoDTO.setName(currentRow.getCell(4).getStringCellValue());
-            demoDTO.setAddress(currentRow.getCell(5).getStringCellValue());
-            demoDTO.setAge(currentRow.getCell(6).getNumericCellValue());
-
-            demoList.add(demoDTO);
-        }
-        return demoList;
-    }
+    
     
     
 }

@@ -46,10 +46,15 @@ public class ExcelResource {
         this.excelService = excelService;
     }
 
-    
+    /**
+     * Insert into the DB the content of the Excel document passed into the request body
+     * @param uploadFile the file conteining the data that have to be added into the "customer_order" DB table
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/upload_customers_orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<List<CustomerOrder>> uploadCompVibrAndTempoExcelTab(@RequestParam("file") MultipartFile uploadFile) throws IOException
+    public ResponseEntity<String> uploadCompVibrAndTempoExcelTab(@RequestParam("file") MultipartFile uploadFile) throws IOException
     {
     	
     	logger.debug("uploadCompVibrAndTempoExcelTab() START: Single file upload!");
@@ -62,6 +67,15 @@ public class ExcelResource {
         
         return new ResponseEntity<>(HttpStatus.OK);
     	
+    }
+    
+    
+    
+    @GetMapping(value = "/customers/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CustomerOrder>> getCustomersOrders() throws IOException
+    {
+        List<CustomerOrder> customersOrdersList = orderService.getOrdersList();
+        return new ResponseEntity<>(customersOrdersList, HttpStatus.OK);
     }
 }
 
