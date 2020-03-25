@@ -1,11 +1,14 @@
 package com.springboot.excelapi.dto;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "customer_order")
@@ -21,7 +24,8 @@ public class CustomerOrder {
     private String product;
     
     @Column(name = "order_date_time")
-    private String orderDate;
+    //private String orderDate;
+    private Date orderDate;
     
     private int quantity;
     
@@ -31,7 +35,7 @@ public class CustomerOrder {
 		super();
 	}
 
-	public CustomerOrder(String fullName, String address, String product, String orderDate, int quantity) {
+	public CustomerOrder(String fullName, String address, String product, Date orderDate, int quantity) {
 		super();
 		//this.id = id;
 		this.fullName = fullName;
@@ -73,11 +77,11 @@ public class CustomerOrder {
 		this.product = product;
 	}
 
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 

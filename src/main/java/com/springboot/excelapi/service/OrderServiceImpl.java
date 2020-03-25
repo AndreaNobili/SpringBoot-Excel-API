@@ -1,13 +1,17 @@
 package com.springboot.excelapi.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.excelapi.dto.CustomerOrder;
 import com.springboot.excelapi.repository.OrderRepository;
+import com.springboot.excelapi.services.utils.ExcelServiceUtils;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -26,6 +30,42 @@ public class OrderServiceImpl implements OrderService {
 	public void insertOrder(CustomerOrder order) {
 		orderRepository.save(order);
 	}
+	
+	/**
+     * Method that processes the "Sheet1" tab of the provided Excel sheet and insert its content
+     * into a specific database table
+     * 
+     * @param fileName the file that have to be processed and inserted into the DB
+     * @return a Boolean value which specifies the outcome of the transaction
+     * @throws Exception 
+     */
+    public Boolean insertOrdersFromExcel(MultipartFile uploadfile) throws Exception {
+    	Boolean result = true;
+    	
+	    try {
+	    	String fileName = ExcelServiceUtils.uploadExcelDocument(uploadfile);
+	    	String tabName = "TAB1";
+	    	
+	    	//String filePath = UPLOADED_FOLDER + fileName;
+	    	
+	    	Sheet sheet = ExcelServiceUtils.getExcelSheet(fileName, tabName);
+	    	
+	    	List<CustomerOrder> rowsList = ExcelServiceUtils.getVibrAndTempListFromExcelDSheet(sheet);
+	    	
+	    	Iterator<CustomerOrder> rowsListIterator = rowsList.iterator();
+	    	CustomerOrder currentOrder;
+	    	
+	    	while(rowsListIterator.hasNext()) {
+	    		currentOrder = rowsListIterator.next();	
+	    		
+	    		orderRepository.save(currentOrder);		
+	    	}
+    	} catch (Exception e) {
+			return false;
+		}
+    	
+    	return result;
+    }
 	
 	
 	

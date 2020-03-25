@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -99,7 +100,9 @@ public class ExcelResourceIntegrationTest {
     public void insertOrderServiceTest() {
     	CustomerOrder testOrder =  new CustomerOrder("TEST1", 
     									   			 "Test Street 35 - New York - USA", 
-    									   			 "TEST PRODUCT 1", "2020-03-24 12:10:00", 
+    									   			 "TEST PRODUCT 1", 
+    									   			 //"2020-03-24 12:10:00", 
+    									   			 new Date(),
     									   			 3);
     	orderService.insertOrder(testOrder);
     	

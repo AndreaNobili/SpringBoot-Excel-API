@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Description;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.multipart.MultipartFile;
+import com.springboot.excelapi.dto.CustomerOrder;
 import com.springboot.excelapi.dto.DemoDTO;
 import com.springboot.excelapi.dto.ExampleDTO;
-
+import com.springboot.excelapi.services.utils.ExcelServiceUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,11 +24,12 @@ public class ExcelService {
 
     /**
      * Method for reading from specific excel file when we know types and number of cells.
+     * The readed rows are inserted into the "customer_order" database table
      *
      * @return list of mapped objects
      * @throws IOException - throws IO exception.
      */
-    public List<ExampleDTO> readFromExcelWithKnownObject() throws IOException
+    public void insertDataFromExcel() throws IOException
     {
         // get file that needs to be mapped into object.
         Resource resource = new ClassPathResource("documents/sample.xlsx");
@@ -37,7 +39,7 @@ public class ExcelService {
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
         Sheet sheet = workbook.getSheetAt(0);
 
-        List<ExampleDTO> exampleDTOList = new ArrayList<>();
+        List<CustomerOrder> ordersList = new ArrayList<>();
 
         // iterate through rows
         Iterator<Row> iterator = sheet.iterator();
@@ -49,18 +51,21 @@ public class ExcelService {
             if (currentRow.getRowNum() == 0) {
                 continue;
             }
+            
+            CustomerOrder currentOrder = new CustomerOrder();
+            
+            currentOrder.setFullName(currentRow.getCell(0).getStringCellValue());
+            currentOrder.setAddress(currentRow.getCell(1).getStringCellValue());
+            //currentOrder.setOrderDate(currentRow.getCell(2).getDateCellValue().toString());
+            currentOrder.setOrderDate(currentRow.getCell(2).getDateCellValue());
+            currentOrder.setProduct(currentRow.getCell(3).getStringCellValue());
+            currentOrder.setQuantity((int)currentRow.getCell(4).getNumericCellValue());
+            
+            ordersList.add(currentOrder);
 
-            // mapped to example object.
-            ExampleDTO exampleDTO = new ExampleDTO();
-            exampleDTO.setFullName(currentRow.getCell(0).getStringCellValue());
-            exampleDTO.setAddress(currentRow.getCell(1).getStringCellValue());
-            exampleDTO.setOrderDate(currentRow.getCell(2).getDateCellValue().toString());
-            exampleDTO.setProduct(currentRow.getCell(3).getStringCellValue());
-            exampleDTO.setQuantity(currentRow.getCell(4).getNumericCellValue());
-
-            exampleDTOList.add(exampleDTO);
+            
         }
-        return exampleDTOList;
+        
     }
 
     /**
@@ -99,4 +104,6 @@ public class ExcelService {
         }
         return demoList;
     }
+    
+    
 }

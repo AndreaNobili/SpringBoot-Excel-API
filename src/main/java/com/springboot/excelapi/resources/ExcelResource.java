@@ -1,19 +1,27 @@
 package com.springboot.excelapi.resources;
 
+
+import com.springboot.excelapi.dto.CustomerOrder;
 import com.springboot.excelapi.dto.DemoDTO;
 import com.springboot.excelapi.dto.ExampleDTO;
 import com.springboot.excelapi.service.OrderService;
 import com.springboot.excelapi.service.OrderServiceImpl;
 import com.springboot.excelapi.services.ExcelService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +35,8 @@ public class ExcelResource {
     
     @Autowired
 	OrderService orderService;
+    
+    private final Logger logger = LoggerFactory.getLogger(ExcelResource.class);
 
     /**
      * Constructor / dependency injector
@@ -36,17 +46,52 @@ public class ExcelResource {
         this.excelService = excelService;
     }
 
-    @GetMapping(value = "/known-cells", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ExampleDTO>> mapExcelRowsToObject() throws IOException
+    
+    @PostMapping(value = "/upload_customers_orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<List<CustomerOrder>> uploadCompVibrAndTempoExcelTab(@RequestParam("file") MultipartFile uploadFile) throws IOException
     {
-        List<ExampleDTO> exampleDTOList = this.excelService.readFromExcelWithKnownObject();
-        return new ResponseEntity<>(exampleDTOList, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/specific-cells", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DemoDTO>> mapSpecificCellsToObject() throws IOException
-    {
-        List<DemoDTO> demoDTOList = this.excelService.readSpecificCellsFromExcel();
-        return new ResponseEntity<>(demoDTOList, HttpStatus.OK);
+    	
+    	logger.debug("uploadCompVibrAndTempoExcelTab() START: Single file upload!");
+    	
+        try {
+			orderService.insertOrdersFromExcel(uploadFile);
+		} catch (Exception ex) {
+			return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);		
+		}
+        
+        return new ResponseEntity<>(HttpStatus.OK);
+    	
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
